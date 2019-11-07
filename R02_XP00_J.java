@@ -27,7 +27,9 @@ public class R02_XP00_J {
 		
 		File someFile = new File("someFileName.txt");
 		// Do something with someFile
-		someFile.delete();
+		if (!someFile.delete()) {
+		System.out.println("Could not delete file.");
+		}
 	}
 	
 }
