@@ -4,6 +4,7 @@
 	
 	 - Initial commit of non-compliant code
 	 - Testing
+	 - Fixed code to be compliant
 	
 	Calls function getInteger(DataInputStream is) with an illegal value.
 	
@@ -27,8 +28,8 @@ public class R03_NUM03_J {
 		
 	}
 	
-	public static int getInteger(DataInputStream is) throws IOException {
-		return is.readInt();
+	public static long getInteger(DataInputStream is) throws IOException {
+		return is.readInt() & 0xFFFFFFFFL;
 	}
 	
 }
