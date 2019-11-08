@@ -9,34 +9,32 @@ This program creates a temporary file and checks to see if it still exists after
  
  
 */
+
 import java.io.*;
+import java.nio.*;
 
 public class R13_FIO03_J {
 	
   public static void main(String[] args) throws IOException{
-    File f = new File("tempnam.tmp");
+
 	System.out.println("The non-compliant code will not delete the temp file after it is done.");
-    if (f.exists()) {
-      System.out.println("This file already exists");
-      return;
-    }
- 
-    FileOutputStream fop = null;
+    Path tempFile = null;
     try {
-      fop = new FileOutputStream(f);
-      String str = "Data";
-      fop.write(str.getBytes());
-    } finally {
-      if (fop != null) {
-        try {
-          fop.close();
-        } catch (IOException x) {
-          // Handle error
-        }
+      tempFile = Files.createTempFile("tempnam", ".tmp");
+      try (BufferedWriter writer =
+          Files.newBufferedWriter(tempFile, Charset.forName("UTF8"),
+                                  StandardOpenOption.DELETE_ON_CLOSE)) {
+        // Write to file
       }
+      System.out.println("Temporary file write done, file erased");
+    } catch (FileAlreadyExistsException x) {
+      System.err.println("File exists: " + tempFile);
+    } catch (IOException x) {
+      // Some other sort of failure, such as permissions.
+      System.err.println("Error creating temporary file: " + x);
     }
 	
-	if (f.exists()) {
+	if (tempFile.exists()) {
 		System.out.println("The temporary file still exists.");
 	}
 	else {
