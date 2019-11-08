@@ -1,6 +1,6 @@
 /*
-Compilation: javac R07_ERR01_J.java
-Execution: java R07_ERR01_J
+Compilation: javac R10_THI00_J.java
+Execution: java R10_THI00_J
 
  - Initial commit of non-compliant code
  - testing
